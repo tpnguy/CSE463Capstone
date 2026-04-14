@@ -219,7 +219,7 @@
         <a href="resources.html" aria-label="Resources that might prove helpful">RESOURCES</a>
         <a href="contact.html" aria-label="Toronto Cupcake contact information">CONTACT</a>
         <a href="delivery.html" aria-label="Toronto Cupcake delivery">CUPCAKE DELIVERY</a> 
-        <a href="cgi-bin/html-cart/html-cart.cgi?action=display_cart&amp;page=cupcakes.html" aria-label="Shopping Cart">VIEW CART</a>    
+        <a href="cart.html">VIEW CART</a>  
     </div>
     <main id="main-content">
       <div id="global-spinner" class="frosting-spinner">
@@ -2284,25 +2284,7 @@ function setupHolidayDisplay() {
               });
           });
       }
-      function setupCartSpinner() {
-          const forms = document.querySelectorAll("form[action='/cgi-bin/html-cart/html-cart.cgi']");
 
-          forms.forEach(form => {
-              form.addEventListener("submit", function () {
-                  // Find the closest grid item (cupcake div)
-                  const gridItem = form.closest(".grid-item");
-                  if (gridItem) {
-                      const spinner = document.getElementById("global-spinner");
-
-                      // Move spinner inside the grid item
-                      gridItem.appendChild(spinner);
-
-                      // Position the spinner correctly and make it visible
-                      spinner.style.display = "block";
-                  }
-              });
-          });
-      }
       function setupAnnouncement() {
         const announcementData = {
             "active": true,  // Set to false to hide
@@ -2351,7 +2333,6 @@ function setupHolidayDisplay() {
       setupAccordion();
       setupDateTimeDisplay();
       setupModal();
-      setupCartSpinner();
       setupAnnouncement();
   });
 </script>
@@ -2375,5 +2356,6 @@ function setupHolidayDisplay() {
       <p id="announcement-text"></p>
   </div>
 </div>
+<script src="cart-intercept.js"></script>
 </body>
 </html>
