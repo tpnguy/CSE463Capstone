@@ -180,47 +180,62 @@
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCFWH7NT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> 
 
-    <header class="masthead" role="banner">
-        <div class="logo-container">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">       
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">     
-        </div>
-
-        <div class="pink-bar">
-            <span class="openNav" aria-label="Open Navigation">&#9776;</span> <!-- Hamburger icon -->
-            <span class="date-text"></span>
-            <span class="promo-text"><a href="#" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a></span>
-        </div>
-    </header>
-    
-    <!-- Sidenav (Hamburger Menu) -->
-    <div id="mySidenav" class="sidenav" role="navigation" aria-label="Main Navigation" aria-live="polite">
-        <a href="index.html" aria-label="Toronto Cupcake's home page">HOME</a>
-        <a href="about.html" aria-label="About Toronto Cupcake">ABOUT</a>
-        <a href="CorporateEvents.html" aria-label="Page for Corporate events">CORPORATE EVENTS</a>
-        <a href="occasions.html" aria-label="Some occasions Toronto Cupcake supports">OCCASIONS</a>
-        <div class="submenu-parent">
-            <a href="#" class="submenu-toggle" aria-expanded="false" aria-controls="submenu1" aria-label="Expand Cupcake options">CUPCAKES</a>
-            <ul id="submenu1" class="submenu" aria-hidden="true">
-                <li><a href="cupcakes.html#Always-Available" aria-label="Cupcakes available every day">ALWAYS AVAILABLE</a></li>
-                <li><a href="cupcakes.html#Holidays" aria-label="Cupcakes available for different holidays">HOLIDAYS</a></li>
-                <li><a href="cupcakes.html#Special-Events" aria-label="Cupcakes available for special events">SPECIAL EVENTS</a></li>
-                <li><a href="cupcakes.html#Custom" aria-label="Cupcakes customized">CUSTOM</a></li>
-            </ul>
-        </div>
-        <a href="givingback.html" aria-label="Toronto Cupcake's community page">COMMUNITY</a>
-        <a href="faqs.html" aria-label="Toronto Cupcake Facts and Questions">FAQs</a>
-        <a href="resources.html" aria-label="Resources that might prove helpful">RESOURCES</a>
-        <a href="contact.html" aria-label="Toronto Cupcake contact information">CONTACT</a>
-        <a href="delivery.html" aria-label="Toronto Cupcake delivery">CUPCAKE DELIVERY</a> 
-        <a href="cgi-bin/html-cart/html-cart.cgi?action=display_cart&amp;page=cupcakes.html" aria-label="Shopping Cart">VIEW CART</a>    
+    <!-- MODIFIED: Replaced slide-out sidebar with modern horizontal sticky navbar -->
+    <div class="promo-banner">
+      <a href="#" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a>
     </div>
+    <header class="masthead ux-modified" role="banner">
+      <nav class="main-nav" aria-label="Main Navigation">
+        <a href="index.html" class="logo-home-link" aria-label="Toronto Cupcake – go to homepage">
+          <div class="logo-container">
+            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake" class="logo">
+          </div>
+        </a>
+        <ul class="nav-links" id="main-nav-links">
+          <li><a href="index.html">HOME</a></li>
+          <li class="has-dropdown">
+            <a href="cupcakes.html">CUPCAKES</a>
+            <ul class="dropdown">
+              <li><a href="cupcakes.html#Always-Available">Always Available</a></li>
+              <li><a href="cupcakes.html#Holidays">Holidays</a></li>
+              <li><a href="cupcakes.html#Special-Events">Special Events</a></li>
+              <li><a href="cupcakes.html#Custom-Section">Custom</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">ABOUT</a></li>
+          <li><a href="occasions.html">OCCASIONS</a></li>
+          <li><a href="CorporateEvents.html">CORPORATE</a></li>
+          <li><a href="givingback.html">COMMUNITY</a></li>
+          <li><a href="faqs.html">FAQs</a></li>
+          <li><a href="contact.html">CONTACT</a></li>
+          <li><a href="delivery.html">DELIVERY</a></li>
+        </ul>
+        <a href="cart.html" class="nav-cart-btn" aria-label="View Cart">
+          &#128722; Cart <span id="cart-count-header" class="cart-badge" style="display:none">0</span>
+        </a>
+        <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav-links">&#9776;</button>
+      </nav>
+    </header>
+    <script>
+    (function(){
+      function updateBadge(){
+        var cart=JSON.parse(localStorage.getItem('tc_cart')||'[]');
+        var total=cart.reduce(function(s,i){return s+(i.qty||1);},0);
+        var el=document.getElementById('cart-count-header');
+        if(el){el.textContent=total;el.style.display=total>0?'inline':'none';}
+      }
+      updateBadge();
+      window.addEventListener('storage',updateBadge);
+      var btn=document.querySelector('.nav-hamburger');
+      var links=document.getElementById('main-nav-links');
+      if(btn&&links){
+        btn.addEventListener('click',function(){
+          var open=links.classList.toggle('open');
+          btn.setAttribute('aria-expanded',open);
+        });
+      }
+    })();
+    </script>
     <main id="main-content">
       <div id="global-spinner" class="frosting-spinner">
         <svg width="100" height="100" viewBox="0 0 100 100">
@@ -239,6 +254,21 @@
           <button id="announcement-trigger"></button>
         </div>
         <h1 class="text-primary center ">Cupcakes</h1>
+
+        <!-- ADDED: Category navigation — solves problem of endless scrolling through 40+ items -->
+        <nav class="category-nav ux-modified" aria-label="Cupcake categories">
+          <a href="#Always-Available">Always Available</a>
+          <a href="#Holidays">Holidays</a>
+          <a href="#Special-Events">Special Events</a>
+          <a href="#Custom-Section">Custom</a>
+        </nav>
+
+        <!-- ADDED: Search bar — lets users find specific cupcakes without scrolling -->
+        <div class="cupcake-search-bar ux-modified">
+          <input type="search" id="cupcake-search" placeholder="Search cupcakes&hellip;" aria-label="Search cupcakes">
+        </div>
+        <p id="no-results-msg" class="no-results-msg" aria-live="polite">No cupcakes match your search.</p>
+
         <h2 id="Always-Available" class="text-primary center">Always Available</h2>
         <!-- Assorted Dozen Section - Full Width Row -->
         <div class="grid-item center" id="Assorted-Dozen-ret">
@@ -1766,6 +1796,15 @@
         <p class="modal-close-text">Touch or click anywhere to close</p>
       </div>
     </div>
+    </div><!-- end Special Events grid -->
+
+    <!-- ADDED: Custom Cupcakes section heading — gives anchor for navigation and separates section -->
+    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+    <h2 id="Custom-Section" class="text-primary center">Custom Cupcakes</h2>
+    <p class="center">Challenge us! Bring your idea and we will turn it into a cupcake masterpiece.</p>
+    <!-- MODIFIED: Custom items now in their own labelled grid with red border marker -->
+    <div class="grid-container-six-column ux-modified">
+
     <div class="grid-item center" id="customcupcakes-ret">
       <img src="https://www.torontocupcake.com/images/cupcakes_flavours/custom1.jpg" 
       title="Custom Cupcakes" 
@@ -1950,6 +1989,12 @@
           <p class="modal-close-text">Touch or click anywhere to close</p>
       </div>
     </div>
+    </div><!-- end Custom grid -->
+
+    <!-- ADDED: Toast notification — confirms add-to-cart without disruptive page redirect -->
+    <div id="tc-toast" role="status" aria-live="polite">
+      <span id="tc-toast-msg"></span>
+      <a href="cart.html" class="toast-cart-link">View Cart</a>
     </div>
 </main>
 <!-- Footer Section  -->
@@ -2375,5 +2420,88 @@ function setupHolidayDisplay() {
       <p id="announcement-text"></p>
   </div>
 </div>
+
+<!-- ======================================================
+     UX IMPROVEMENTS SCRIPT — CSE463 Capstone
+     1. Cart intercept: save to localStorage instead of CGI redirect
+     2. Price injection: display price on every card
+     3. Search filter: real-time text filter on cupcake names
+     ====================================================== -->
+<script>
+(function() {
+  // --- 1. Price injection — shows price below product name on each card ---
+  document.querySelectorAll('.grid-item form').forEach(function(form) {
+    var priceInput = form.querySelector('[name="price"]');
+    var nameEl = form.querySelector('.product-name');
+    if (priceInput && nameEl && !form.querySelector('.cupcake-price')) {
+      var priceEl = document.createElement('p');
+      priceEl.className = 'cupcake-price';
+      priceEl.textContent = '$' + parseFloat(priceInput.value).toFixed(2) + ' each';
+      nameEl.insertAdjacentElement('afterend', priceEl);
+    }
+  });
+
+  // --- 2. Cart intercept — saves to localStorage, shows toast, no redirect ---
+  document.addEventListener('submit', function(e) {
+    var form = e.target;
+    if (form.action && form.action.includes('html-cart')) {
+      e.preventDefault();
+      var nameInput = form.querySelector('[name="name"]');
+      var priceInput = form.querySelector('[name="price"]');
+      var qtyInput = form.querySelector('[name="qty"]');
+      var imageInput = form.querySelector('[name="image"]');
+      if (!nameInput || !priceInput) return;
+
+      var name  = nameInput.value;
+      var price = parseFloat(priceInput.value);
+      var qty   = parseInt(qtyInput ? qtyInput.value : '1') || 1;
+      var image = imageInput ? imageInput.value : '';
+
+      var cart = JSON.parse(localStorage.getItem('tc_cart') || '[]');
+      var existing = cart.find(function(i) { return i.name === name; });
+      if (existing) { existing.qty += qty; }
+      else          { cart.push({ name: name, price: price, qty: qty, image: image }); }
+      localStorage.setItem('tc_cart', JSON.stringify(cart));
+
+      // Update badge
+      var total = cart.reduce(function(s, i) { return s + (i.qty || 1); }, 0);
+      var badge = document.getElementById('cart-count-header');
+      if (badge) { badge.textContent = total; badge.style.display = 'inline'; }
+
+      // Show toast
+      var toastMsg = document.getElementById('tc-toast-msg');
+      var toast    = document.getElementById('tc-toast');
+      if (toastMsg && toast) {
+        toastMsg.textContent = name + ' added to cart! ';
+        toast.classList.add('show');
+        setTimeout(function() { toast.classList.remove('show'); }, 3500);
+      }
+
+      // Reset qty field to 1
+      if (qtyInput) qtyInput.value = 1;
+    }
+  });
+
+  // --- 3. Search filter — hides non-matching grid items in real time ---
+  var searchInput = document.getElementById('cupcake-search');
+  var noResults   = document.getElementById('no-results-msg');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      var query = this.value.trim().toLowerCase();
+      var items = document.querySelectorAll('.grid-item');
+      var visible = 0;
+      items.forEach(function(item) {
+        var text = item.textContent.toLowerCase();
+        var show = !query || text.indexOf(query) !== -1;
+        item.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      if (noResults) {
+        noResults.style.display = (query && visible === 0) ? 'block' : 'none';
+      }
+    });
+  }
+})();
+</script>
 </body>
 </html>

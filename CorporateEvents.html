@@ -268,49 +268,61 @@ s0.parentNode.insertBefore(s1,s0);
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCFWH7NT"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) --> 
-<header class="masthead"  role="banner">
-    <div class="logo-container">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">       
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">     
- 
-    </div>
-
-    <div class="pink-bar">
-        <span class="openNav" aria-label="Open Navigation">&#9776;</span> <!-- Hamburger icon -->
-        <span class="date-text"></span>
-        <span class="promo-text"><a href="#" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a></span>
-    </div>
-</header>
-
-
-<!-- Sidenav (Hamburger Menu) -->
-<div id="mySidenav" class="sidenav"  role="navigation" aria-label="Main Navigation" aria-live="polite">
-        <a href="index.html" aria-label="Toronto Cupcake's home page">HOME</a>
-        <a href="about.html" aria-label="About Toronto Cupcake">ABOUT</a>
-        <a href="CorporateEvents.html" aria-label="Page for Corporate events">CORPORATE EVENTS</a>
-        <a  href="occasions.html" aria-label="Some occasions Toronto Cupcake supports">OCCASIONS</a>
-    <div class="submenu-parent">
-        <a href="#" class="submenu-toggle"  aria-expanded="false" aria-controls="submenu1" aria-label="Expand Cupcake options">CUPCAKES</a>
-            <ul id="submenu1" class="submenu" aria-hidden="true">
-                <li><a href="cupcakes.html#Always-Available" aria-label="Cupcakes available every day">ALWAYS AVAILABLE</a></li>
-                <li><a href="cupcakes.html#Holidays" aria-label="Cupcakes available for different holidays">HOLIDAYS</a></li>
-                <li><a href="cupcakes.html#Special-Events" aria-label="Cupcakes available for special events">SPECIAL EVENTS</a></li>
-                <li><a href="cupcakes.html#Custom" aria-label="Cupcakes customized">CUSTOM</a></li>
-            </ul>
-    </div>
-        <a href="givingback.html" aria-label="Toronto Cupcake's community page">COMMUNITY</a>
-        <a href="faqs.html" aria-label="Toronto Cupcake Facts and Questions">FAQs</a>
-        <a href="resources.html" aria-label="Resources that might prove helpful">RESOURCES</a>
-        <a href="contact.html" aria-label="Toronto Cupcake contact information" >CONTACT</a>
-        <a href="delivery.html" aria-label="Toronto Cupcake delivery">CUPCAKE DELIVERY</a> 
-        <a href="cgi-bin/html-cart/html-cart.cgi?action=display_cart&amp;page=cupcakes.html" aria-label="Shopping Cart">VIEW CART</a>     
+<div class="promo-banner">
+  <a href="#" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a>
 </div>
+<header class="masthead" role="banner">
+  <nav class="main-nav" aria-label="Main Navigation">
+    <a href="index.html" class="logo-home-link" aria-label="Toronto Cupcake – go to homepage">
+      <div class="logo-container">
+        <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake" class="logo">
+      </div>
+    </a>
+    <ul class="nav-links" id="main-nav-links">
+      <li><a href="index.html">HOME</a></li>
+      <li class="has-dropdown">
+        <a href="cupcakes.html">CUPCAKES</a>
+        <ul class="dropdown">
+          <li><a href="cupcakes.html#Always-Available">Always Available</a></li>
+          <li><a href="cupcakes.html#Holidays">Holidays</a></li>
+          <li><a href="cupcakes.html#Special-Events">Special Events</a></li>
+          <li><a href="cupcakes.html#Custom-Section">Custom</a></li>
+        </ul>
+      </li>
+      <li><a href="about.html">ABOUT</a></li>
+      <li><a href="occasions.html">OCCASIONS</a></li>
+      <li><a href="CorporateEvents.html">CORPORATE</a></li>
+      <li><a href="givingback.html">COMMUNITY</a></li>
+      <li><a href="faqs.html">FAQs</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+      <li><a href="delivery.html">DELIVERY</a></li>
+    </ul>
+    <a href="cart.html" class="nav-cart-btn" aria-label="View Cart">
+      &#128722; Cart <span id="cart-count-header" class="cart-badge" style="display:none">0</span>
+    </a>
+    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav-links">&#9776;</button>
+  </nav>
+</header>
+<script>
+(function(){
+  function updateBadge(){
+    var cart=JSON.parse(localStorage.getItem('tc_cart')||'[]');
+    var total=cart.reduce(function(s,i){return s+(i.qty||1);},0);
+    var el=document.getElementById('cart-count-header');
+    if(el){el.textContent=total;el.style.display=total>0?'inline':'none';}
+  }
+  updateBadge();
+  window.addEventListener('storage',updateBadge);
+  var btn=document.querySelector('.nav-hamburger');
+  var links=document.getElementById('main-nav-links');
+  if(btn&&links){
+    btn.addEventListener('click',function(){
+      var open=links.classList.toggle('open');
+      btn.setAttribute('aria-expanded',open);
+    });
+  }
+})();
+</script>
 </div>
 <hr>
 <main id="main-content">
