@@ -31,7 +31,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Toronto Cupcake | Handcrafted Cupcakes for Every Occasion</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/torontocupcake.css">
+    <link rel="stylesheet" href="css/aesthetic.css">
     <link rel="shortcut icon" href="https://www.torontocupcake.com/favicon.ico" />
     <link rel="canonical" href="cupcakes.html" />
     <link rel="apple-touch-icon" href="https://www.torontocupcake.com/apple_touch_icon_180x180.png" sizes="180x180" />
@@ -181,27 +185,28 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCFWH7NT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> 
 
     <header class="masthead" role="banner">
-        <div class="logo-container">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">       
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">     
-        </div>
-
-        <div class="pink-bar">
-            <span class="openNav" aria-label="Open Navigation">&#9776;</span> <!-- Hamburger icon -->
-            <span class="date-text"></span>
-            <span class="promo-text"><a href="#" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a></span>
-        </div>
-    </header>
+    <a href="index.html" class="logo-link" aria-label="Toronto Cupcake - Go to Home Page">
+        <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake" class="logo-main">
+    </a>
+    <div class="pink-bar">
+        <span class="openNav" aria-label="Open Navigation">&#9776;</span>
+        <span class="promo-text"><a href="CorporateEvents.html" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a></span>
+        <a href="cart.html" class="cart-icon-link" aria-label="View Shopping Cart">&#128722;<span class="cart-badge" id="cart-count-header"></span></a>
+    </div>
+</header>
+<script>
+(function(){
+    var cart=JSON.parse(localStorage.getItem('tc_cart')||'[]');
+    var n=cart.reduce(function(a,i){return a+(parseInt(i.qty)||1);},0);
+    var el=document.getElementById('cart-count-header');
+    if(el){el.textContent=n>0?n:'';el.style.display=n>0?'flex':'none';}
+})();
+</script>
     
     <!-- Sidenav (Hamburger Menu) -->
     <div id="mySidenav" class="sidenav" role="navigation" aria-label="Main Navigation" aria-live="polite">
         <a href="index.html" aria-label="Toronto Cupcake's home page">HOME</a>
+        <a href="cart.html" class="nav-cart-link" aria-label="Shopping Cart">VIEW CART</a>
         <a href="about.html" aria-label="About Toronto Cupcake">ABOUT</a>
         <a href="CorporateEvents.html" aria-label="Page for Corporate events">CORPORATE EVENTS</a>
         <a href="occasions.html" aria-label="Some occasions Toronto Cupcake supports">OCCASIONS</a>
@@ -218,9 +223,8 @@
         <a href="faqs.html" aria-label="Toronto Cupcake Facts and Questions">FAQs</a>
         <a href="resources.html" aria-label="Resources that might prove helpful">RESOURCES</a>
         <a href="contact.html" aria-label="Toronto Cupcake contact information">CONTACT</a>
-        <a href="delivery.html" aria-label="Toronto Cupcake delivery">CUPCAKE DELIVERY</a> 
-        <a href="cgi-bin/html-cart/html-cart.cgi?action=display_cart&amp;page=cupcakes.html" aria-label="Shopping Cart">VIEW CART</a>    
-    </div>
+        <a href="delivery.html" aria-label="Toronto Cupcake delivery">CUPCAKE DELIVERY</a>
+</div>
     <main id="main-content">
       <div id="global-spinner" class="frosting-spinner">
         <svg width="100" height="100" viewBox="0 0 100 100">
@@ -239,6 +243,21 @@
           <button id="announcement-trigger"></button>
         </div>
         <h1 class="text-primary center ">Cupcakes</h1>
+
+        <!-- Category navigation bar -->
+        <nav class="category-nav" aria-label="Cupcake categories">
+            <a href="#Always-Available">Always Available</a>
+            <a href="#Holidays">Holidays</a>
+            <a href="#Special-Events">Special Events</a>
+            <a href="#Custom-Section">Custom</a>
+        </nav>
+
+        <!-- Search / filter bar -->
+        <div class="cupcake-search-bar">
+            <input type="search" id="cupcake-search" placeholder="Search cupcakes…" aria-label="Search cupcakes">
+        </div>
+        <p id="no-results-msg" class="no-results-msg">No cupcakes match your search.</p>
+
         <h2 id="Always-Available" class="text-primary center">Always Available</h2>
         <!-- Assorted Dozen Section - Full Width Row -->
         <div class="grid-item center" id="Assorted-Dozen-ret">
@@ -1766,6 +1785,12 @@
         <p class="modal-close-text">Touch or click anywhere to close</p>
       </div>
     </div>
+
+    </div><!-- end Special Events grid -->
+
+    <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+    <h2 id="Custom-Section" class="text-primary center">Custom Cupcakes</h2>
+    <div class="grid-container-six-column">
     <div class="grid-item center" id="customcupcakes-ret">
       <img src="https://www.torontocupcake.com/images/cupcakes_flavours/custom1.jpg" 
       title="Custom Cupcakes" 
@@ -2375,5 +2400,127 @@ function setupHolidayDisplay() {
       <p id="announcement-text"></p>
   </div>
 </div>
+
+<!-- Toast notification element -->
+<div id="tc-toast" role="status" aria-live="polite">
+    <span id="tc-toast-msg"></span>
+    <a href="cart.html" class="toast-cart-link">View Cart</a>
+</div>
+
+<script>
+// ── Cart intercept: save to localStorage, show toast, stay on page ──
+(function () {
+    function getCart() {
+        try { return JSON.parse(localStorage.getItem('tc_cart') || '[]'); }
+        catch (e) { return []; }
+    }
+    function saveCart(cart) {
+        localStorage.setItem('tc_cart', JSON.stringify(cart));
+    }
+    function updateBadge() {
+        var cart = getCart();
+        var n = cart.reduce(function(a, i){ return a + (parseInt(i.qty) || 1); }, 0);
+        var el = document.getElementById('cart-count-header');
+        if (el) { el.textContent = n > 0 ? n : ''; el.style.display = n > 0 ? 'flex' : 'none'; }
+    }
+
+    var toastTimer = null;
+    function showToast(name) {
+        var toast = document.getElementById('tc-toast');
+        var msg   = document.getElementById('tc-toast-msg');
+        if (!toast || !msg) return;
+        msg.textContent = '\u2713 \u201c' + name + '\u201d added to cart. ';
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 3500);
+    }
+
+    // Inject price display into each cupcake card
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.grid-container-six-column form').forEach(function(form) {
+            var priceInput = form.querySelector('[name="price"]');
+            var nameEl     = form.querySelector('.product-name');
+            if (!priceInput || !nameEl) return;
+            var val = parseFloat(priceInput.value);
+            if (!val) return;
+            var tag = document.createElement('p');
+            tag.className = 'cupcake-price';
+            tag.textContent = '$' + val.toFixed(2);
+            nameEl.insertAdjacentElement('afterend', tag);
+        });
+
+        // Search / filter
+        var searchInput = document.getElementById('cupcake-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                var q = this.value.toLowerCase().trim();
+                var items = document.querySelectorAll('.grid-container-six-column .grid-item[id]');
+                var visible = 0;
+                items.forEach(function(item) {
+                    var text = item.textContent.toLowerCase();
+                    var match = !q || text.includes(q);
+                    item.style.display = match ? '' : 'none';
+                    if (match) visible++;
+                });
+                var noMsg = document.getElementById('no-results-msg');
+                if (noMsg) noMsg.style.display = (q && visible === 0) ? 'block' : 'none';
+            });
+        }
+
+        // Highlight active category on scroll
+        var sections = [
+            { id: 'Always-Available', link: 'a[href="#Always-Available"]' },
+            { id: 'Holidays',         link: 'a[href="#Holidays"]' },
+            { id: 'Special-Events',   link: 'a[href="#Special-Events"]' },
+            { id: 'Custom-Section',   link: 'a[href="#Custom-Section"]' }
+        ];
+        function updateActiveCategory() {
+            var scrollY = window.scrollY + 80;
+            var active = null;
+            sections.forEach(function(s) {
+                var el = document.getElementById(s.id);
+                if (el && el.offsetTop <= scrollY) active = s;
+            });
+            document.querySelectorAll('.category-nav a').forEach(function(a){ a.classList.remove('active'); });
+            if (active) {
+                var link = document.querySelector('.category-nav ' + active.link);
+                if (link) link.classList.add('active');
+            }
+        }
+        window.addEventListener('scroll', updateActiveCategory, { passive: true });
+        updateActiveCategory();
+    });
+
+    document.addEventListener('submit', function (e) {
+        var form = e.target;
+        if (!form.action || !form.action.includes('html-cart')) return;
+        e.preventDefault();
+
+        var name  = (form.querySelector('[name="name"]')  || {}).value || '';
+        var price = (form.querySelector('[name="price"]') || {}).value || '0';
+        var group = (form.querySelector('[name="group"]') || {}).value || '';
+        var image = (form.querySelector('[name="image"]') || {}).value || '';
+        var qty   = parseInt((form.querySelector('[name="qty"]') || {}).value || '1', 10);
+
+        if (!name) return;
+
+        var cart = getCart();
+        var existing = cart.find(function (i) { return i.name === name; });
+        if (existing) {
+            existing.qty += qty;
+        } else {
+            cart.push({ name: name, price: price, group: group, image: image, qty: qty });
+        }
+        saveCart(cart);
+        updateBadge();
+
+        // Reset qty input back to 1
+        var qtyInput = form.querySelector('[name="qty"]');
+        if (qtyInput) qtyInput.value = 1;
+
+        showToast(name);
+    });
+})();
+</script>
 </body>
 </html>

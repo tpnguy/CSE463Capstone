@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.torontocupcake.com)"
+      "WebFetch(domain:www.torontocupcake.com)",
+      "Bash(python3 *)"
     ]
   }
 }

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Toronto Cupcake - Shopping Cart</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/torontocupcake.css">
+    <link rel="stylesheet" href="css/aesthetic.css">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <style>
+        /* Cart-specific styles */
+        .cart-section {
+            max-width: 900px;
+            margin: 20px auto;
+        }
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        .cart-table th {
+            background-color: #f493c1;
+            color: black;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 500;
+        }
+        .cart-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: middle;
+            color: #4a4a4a;
+        }
+        .cart-table tr:last-child td {
+            border-bottom: none;
+        }
+        .cart-table tr:nth-child(even) {
+            background-color: #fdf5f9;
+        }
+        .cart-qty-input {
+            width: 55px;
+            padding: 4px 6px;
+            border: 2px solid #f493c1;
+            border-radius: 6px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #d63384;
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+        .remove-btn:hover {
+            background-color: #fde8f2;
+        }
+        .cart-totals {
+            text-align: right;
+            margin-bottom: 30px;
+        }
+        .cart-totals table {
+            margin-left: auto;
+            border-collapse: collapse;
+            min-width: 280px;
+        }
+        .cart-totals td {
+            padding: 6px 12px;
+            color: #4a4a4a;
+            font-size: 1rem;
+        }
+        .cart-totals .total-row td {
+            font-size: 1.15rem;
+            font-weight: bold;
+            border-top: 2px solid #f493c1;
+            padding-top: 10px;
+        }
+        .cart-totals td:last-child {
+            text-align: right;
+            min-width: 80px;
+        }
+        .empty-cart-msg {
+            text-align: center;
+            padding: 40px 20px;
+            color: #4a4a4a;
+            font-size: 1.1rem;
+        }
+        .empty-cart-msg a {
+            color: #f493c1;
+        }
+        /* Customer info form */
+        .order-form {
+            background-color: #fdf5f9;
+            border-radius: 10px;
+            padding: 24px 28px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(128,128,128,0.1);
+        }
+        .order-form h2 {
+            margin-top: 0;
+            color: #4a4a4a;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #f493c1;
+            padding-bottom: 8px;
+            margin-bottom: 18px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .form-group label {
+            font-size: 0.9rem;
+            color: #4a4a4a;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            border: 2px solid #f493c1;
+            border-radius: 7px;
+            padding: 8px 10px;
+            font-size: 0.95rem;
+            font-family: Tahoma, Arial, sans-serif;
+            color: #333;
+            background-color: white;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #e27ba1;
+            box-shadow: 0 0 0 2px rgba(228, 123, 161, 0.15);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Confirmation overlay */
+        #order-confirmation {
+            display: none;
+            text-align: center;
+            background-color: #fdf5f9;
+            border: 3px solid #f493c1;
+            border-radius: 10px;
+            padding: 40px 30px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(128,128,128,0.2);
+        }
+        #order-confirmation h2 {
+            color: #d63384;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        #order-confirmation p {
+            font-size: 1rem;
+            color: #4a4a4a;
+        }
+        .order-number-display {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #d63384;
+            margin: 12px 0;
+        }
+        .section-divider {
+            border: none;
+            border-top: 2px solid #f4e0ea;
+            margin: 28px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header class="masthead" role="banner">
+    <a href="index.html" class="logo-link" aria-label="Toronto Cupcake - Go to Home Page">
+        <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake" class="logo-main">
+    </a>
+    <div class="pink-bar">
+        <span class="openNav" aria-label="Open Navigation">&#9776;</span>
+        <span class="promo-text"><a href="CorporateEvents.html" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a></span>
+        <a href="cart.html" class="cart-icon-link" aria-label="View Shopping Cart">&#128722;<span class="cart-badge" id="cart-count-header"></span></a>
+    </div>
+</header>
+<script>
+(function(){
+    var cart=JSON.parse(localStorage.getItem('tc_cart')||'[]');
+    var n=cart.reduce(function(a,i){return a+(parseInt(i.qty)||1);},0);
+    var el=document.getElementById('cart-count-header');
+    if(el){el.textContent=n>0?n:'';el.style.display=n>0?'flex':'none';}
+})();
+</script>
+
+    <!-- Sidenav -->
+    <div id="mySidenav" class="sidenav" role="navigation" aria-label="Main Navigation" aria-live="polite">
+        <a href="index.html" aria-label="Toronto Cupcake's home page">HOME</a>
+        <a href="cart.html" class="nav-cart-link" aria-label="Shopping Cart">VIEW CART</a>
+        <a href="about.html" aria-label="About Toronto Cupcake">ABOUT</a>
+        <a href="CorporateEvents.html" aria-label="Page for Corporate events">CORPORATE EVENTS</a>
+        <a href="occasions.html" aria-label="Some occasions Toronto Cupcake supports">OCCASIONS</a>
+        <div class="submenu-parent">
+            <a href="#" class="submenu-toggle" aria-expanded="false" aria-controls="submenu1" aria-label="Expand Cupcake options">CUPCAKES</a>
+            <ul id="submenu1" class="submenu" aria-hidden="true">
+                <li><a href="cupcakes.html#Always-Available" aria-label="Cupcakes available every day">ALWAYS AVAILABLE</a></li>
+                <li><a href="cupcakes.html#Holidays" aria-label="Cupcakes available for different holidays">HOLIDAYS</a></li>
+                <li><a href="cupcakes.html#Special-Events" aria-label="Cupcakes available for special events">SPECIAL EVENTS</a></li>
+                <li><a href="cupcakes.html#Custom" aria-label="Cupcakes customized">CUSTOM</a></li>
+            </ul>
+        </div>
+        <a href="givingback.html" aria-label="Toronto Cupcake's community page">COMMUNITY</a>
+        <a href="faqs.html" aria-label="Toronto Cupcake Facts and Questions">FAQs</a>
+        <a href="resources.html" aria-label="Resources that might prove helpful">RESOURCES</a>
+        <a href="contact.html" aria-label="Toronto Cupcake contact information">CONTACT</a>
+        <a href="delivery.html" aria-label="Toronto Cupcake delivery">CUPCAKE DELIVERY</a>
+</div>
+
+    <main id="main-content">
+        <div class="cart-section">
+            <h1 class="center wide-large fontsize2-5">YOUR CART</h1>
+
+            <!-- Confirmation message (shown after order placed) -->
+            <div id="order-confirmation">
+                <h2>Thank You!</h2>
+                <p>Your order has been received. We'll be in touch shortly to confirm your delivery details.</p>
+                <p class="order-number-display" id="conf-order-number"></p>
+                <p>A confirmation will be sent to <strong id="conf-email"></strong>.</p>
+                <br>
+                <a href="cupcakes.html" class="btn">Continue Shopping</a>
+            </div>
+
+            <!-- Cart contents (shown while shopping) -->
+            <div id="cart-contents">
+
+                <!-- Empty cart message -->
+                <div id="empty-cart-msg" class="empty-cart-msg" style="display:none;">
+                    <p>Your cart is empty.</p>
+                    <p><a href="cupcakes.html">Browse our cupcakes</a> and add something delicious!</p>
+                </div>
+
+                <!-- Cart table -->
+                <div id="cart-table-wrapper">
+                    <table class="cart-table" id="cart-table" aria-label="Shopping cart items">
+                        <thead>
+                            <tr>
+                                <th scope="col">Item</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Subtotal</th>
+                                <th scope="col">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cart-tbody">
+                            <!-- Rows inserted by JS -->
+                        </tbody>
+                    </table>
+
+                    <div class="cart-totals">
+                        <table aria-label="Order totals">
+                            <tr>
+                                <td>Subtotal:</td>
+                                <td id="subtotal-display">$0.00</td>
+                            </tr>
+                            <tr>
+                                <td>Delivery:</td>
+                                <td id="delivery-display">Calculated at checkout</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td>Total:</td>
+                                <td id="total-display">$0.00</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Customer info form -->
+                <form class="order-form" id="checkout-form" novalidate>
+                    <h2>Delivery &amp; Contact Information</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cust-first-name">First Name <span aria-hidden="true">*</span></label>
+                            <input type="text" id="cust-first-name" name="first_name" required autocomplete="given-name" placeholder="Jane">
+                        </div>
+                        <div class="form-group">
+                            <label for="cust-last-name">Last Name <span aria-hidden="true">*</span></label>
+                            <input type="text" id="cust-last-name" name="last_name" required autocomplete="family-name" placeholder="Smith">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cust-email">Email Address <span aria-hidden="true">*</span></label>
+                            <input type="email" id="cust-email" name="email" required autocomplete="email" placeholder="jane@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="cust-phone">Phone Number <span aria-hidden="true">*</span></label>
+                            <input type="tel" id="cust-phone" name="phone" required autocomplete="tel" placeholder="647-555-0100">
+                        </div>
+                    </div>
+
+                    <div class="form-row full">
+                        <div class="form-group">
+                            <label for="cust-address">Delivery Address <span aria-hidden="true">*</span></label>
+                            <input type="text" id="cust-address" name="address" required autocomplete="street-address" placeholder="123 Queen St E, Toronto, ON M4E 1E5">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cust-date">Requested Delivery Date <span aria-hidden="true">*</span></label>
+                            <input type="date" id="cust-date" name="delivery_date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cust-time">Preferred Delivery Time</label>
+                            <select id="cust-time" name="delivery_time">
+                                <option value="">-- Select a time --</option>
+                                <option value="morning">Morning (8am – 12pm)</option>
+                                <option value="afternoon">Afternoon (12pm – 5pm)</option>
+                                <option value="evening">Evening (5pm – 9pm)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row full">
+                        <div class="form-group">
+                            <label for="cust-message">Special Instructions / Message on Card</label>
+                            <textarea id="cust-message" name="message" placeholder="e.g. Please ring the doorbell. Happy Birthday Sarah!"></textarea>
+                        </div>
+                    </div>
+
+                    <p style="font-size:0.85rem; color:#888; margin-bottom:16px;">* Required fields. Delivery availability is subject to your postal code — we serve Toronto and the GTA.</p>
+
+                    <div style="text-align:center;">
+                        <button type="submit" class="btn" id="place-order-btn" style="font-size:1.1rem; padding: 10px 30px;">Place Order</button>
+                    </div>
+                </form>
+
+            </div><!-- /#cart-contents -->
+        </div><!-- /.cart-section -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-nav">
+                <a href="index.html" aria-label="Home Page">Home</a>
+                <a href="about.html" aria-label="About Toronto Cupcake">About</a>
+                <a href="contact.html" aria-label="Toronto Cupcake contact information">Contact</a>
+                <a href="CorporateEvents.html" aria-label="Page for Corporate events">Corporate Events</a>
+                <a href="cupcakes.html" aria-label="Cupcakes">Cupcakes</a>
+                <a href="occasions.html" aria-label="Some occasions Toronto Cupcake supports">Occasions</a>
+                <a href="privacy.html" aria-label="Privacy Policy">Privacy Policy</a>
+                <a href="EmploymentOpportunities.html" aria-label="Employment Opportunities">Careers</a>
+            </div>
+            <button class="btn" id="contrast-toggle" aria-pressed="false" aria-label="Toggle high contrast mode">Toggle High Contrast</button>
+            <div class="footer-social">
+                <a href="https://www.instagram.com/torontocupcake/" target="_blank">
+                    <img src="images/instagram-white.webp" alt="Instagram">
+                </a>
+                <a href="https://bsky.app/profile/torontocupcake.bsky.social" target="_blank">
+                    <img src="images/Bluesky_Logo.png" alt="Blue Sky">
+                </a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2024 Toronto Cupcake. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // ── Utilities ────────────────────────────────────────────────
+        function getCart() {
+            try { return JSON.parse(localStorage.getItem('tc_cart') || '[]'); }
+            catch(e) { return []; }
+        }
+        function saveCart(cart) {
+            localStorage.setItem('tc_cart', JSON.stringify(cart));
+        }
+        function fmt(n) {
+            return '$' + parseFloat(n).toFixed(2);
+        }
+
+        // ── Render cart table ────────────────────────────────────────
+        function renderCart() {
+            const cart = getCart();
+            const tbody = document.getElementById('cart-tbody');
+            const emptyMsg = document.getElementById('empty-cart-msg');
+            const tableWrapper = document.getElementById('cart-table-wrapper');
+            const checkoutForm = document.getElementById('checkout-form');
+
+            tbody.innerHTML = '';
+
+            if (cart.length === 0) {
+                emptyMsg.style.display = 'block';
+                tableWrapper.style.display = 'none';
+                checkoutForm.style.display = 'none';
+                return;
+            }
+
+            emptyMsg.style.display = 'none';
+            tableWrapper.style.display = 'block';
+            checkoutForm.style.display = 'block';
+
+            let subtotal = 0;
+
+            cart.forEach(function(item, idx) {
+                const itemSubtotal = parseFloat(item.price) * parseInt(item.qty);
+                subtotal += itemSubtotal;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>
+                        <strong>${escHtml(item.name)}</strong>
+                        ${item.group ? '<br><small style="color:#999;">' + escHtml(item.group) + '</small>' : ''}
+                    </td>
+                    <td>${fmt(item.price)}</td>
+                    <td>
+                        <input type="number" class="cart-qty-input" min="1" value="${parseInt(item.qty)}"
+                               data-idx="${idx}" aria-label="Quantity for ${escHtml(item.name)}">
+                    </td>
+                    <td>${fmt(itemSubtotal)}</td>
+                    <td>
+                        <button class="remove-btn" data-idx="${idx}" aria-label="Remove ${escHtml(item.name)} from cart">&times;</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('subtotal-display').textContent = fmt(subtotal);
+            document.getElementById('total-display').textContent = fmt(subtotal);
+
+            // Qty change
+            tbody.querySelectorAll('.cart-qty-input').forEach(function(input) {
+                input.addEventListener('change', function() {
+                    const i = parseInt(this.dataset.idx);
+                    const newQty = parseInt(this.value);
+                    if (isNaN(newQty) || newQty < 1) { this.value = 1; return; }
+                    const c = getCart();
+                    c[i].qty = newQty;
+                    saveCart(c);
+                    renderCart();
+                });
+            });
+
+            // Remove button
+            tbody.querySelectorAll('.remove-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const i = parseInt(this.dataset.idx);
+                    const c = getCart();
+                    c.splice(i, 1);
+                    saveCart(c);
+                    renderCart();
+                });
+            });
+        }
+
+        function escHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        // ── Checkout form submit ─────────────────────────────────────
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const cart = getCart();
+            if (cart.length === 0) {
+                alert('Your cart is empty. Please add items before placing an order.');
+                return;
+            }
+
+            // Basic validation
+            const required = ['cust-first-name','cust-last-name','cust-email','cust-phone','cust-address','cust-date'];
+            let valid = true;
+            required.forEach(function(id) {
+                const el = document.getElementById(id);
+                if (!el.value.trim()) {
+                    el.style.borderColor = '#d63384';
+                    valid = false;
+                } else {
+                    el.style.borderColor = '#f493c1';
+                }
+            });
+            if (!valid) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Generate a simple order number
+            const orderNum = 'TC-' + Date.now().toString().slice(-7);
+
+            // Show confirmation
+            document.getElementById('conf-order-number').textContent = 'Order #' + orderNum;
+            document.getElementById('conf-email').textContent = document.getElementById('cust-email').value;
+            document.getElementById('cart-contents').style.display = 'none';
+            document.getElementById('order-confirmation').style.display = 'block';
+
+            // Clear cart
+            saveCart([]);
+        });
+
+        // ── Date default (tomorrow) ──────────────────────────────────
+        (function() {
+            const dateInput = document.getElementById('cust-date');
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            dateInput.min = tomorrow.toISOString().split('T')[0];
+            dateInput.value = tomorrow.toISOString().split('T')[0];
+        })();
+
+        // ── High Contrast ────────────────────────────────────────────
+        (function() {
+            const toggle = document.getElementById('contrast-toggle');
+            const body = document.body;
+            if (!toggle) return;
+            const saved = localStorage.getItem('high-contrast');
+            if (saved === 'true') { body.classList.add('high-contrast'); toggle.setAttribute('aria-pressed','true'); }
+            toggle.addEventListener('click', function() {
+                const on = body.classList.toggle('high-contrast');
+                localStorage.setItem('high-contrast', on ? 'true' : 'false');
+                toggle.setAttribute('aria-pressed', on.toString());
+            });
+        })();
+
+        // ── Sidenav ──────────────────────────────────────────────────
+        (function() {
+            const sidenav = document.getElementById('mySidenav');
+            const openBtn = document.querySelector('.openNav');
+            if (!sidenav || !openBtn) return;
+            openBtn.addEventListener('click', function() {
+                sidenav.classList.add('open');
+                document.body.classList.add('sidenav-open');
+            });
+            const toggles = sidenav.querySelectorAll('.submenu-toggle');
+            toggles.forEach(function(toggle) {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                    toggle.setAttribute('aria-expanded', (!expanded).toString());
+                    const submenu = sidenav.querySelector('#' + toggle.getAttribute('aria-controls'));
+                    submenu.setAttribute('aria-hidden', expanded.toString());
+                    toggle.parentElement.classList.toggle('open');
+                });
+            });
+            document.addEventListener('click', function(e) {
+                if (!sidenav.contains(e.target) && !e.target.closest('.openNav')) {
+                    sidenav.classList.remove('open');
+                    document.body.classList.remove('sidenav-open');
+                }
+            });
+        })();
+
+        // ── Date display ─────────────────────────────────────────────
+        (function() {
+            const el = document.querySelector('.date-text');
+            if (!el) return;
+            const opts = { timeZone: 'America/Toronto', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            el.textContent = new Date().toLocaleString('en-CA', opts) + ' - Toronto';
+        })();
+
+        // ── Initial render ───────────────────────────────────────────
+        renderCart();
+    });
+    </script>
+</body>
+</html>

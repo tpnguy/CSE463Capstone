@@ -1148,3 +1148,244 @@ body.high-contrast .footer-nav a:focus {
 .text-center { text-align: center; }
 .text-right { text-align: right; }
 .text-left { text-align: left; }
+
+/* ============================================================
+   IMPROVEMENTS - Navigation, Cart, Cupcake Cards, Home Page
+   ============================================================ */
+
+/* Single centered logo link */
+.logo-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0 6px;
+    text-decoration: none;
+}
+.logo-link:hover { text-decoration: none; opacity: 0.9; }
+.logo-main {
+    height: 75px;
+    width: auto;
+    display: block;
+}
+
+/* Cart icon in pink bar */
+.cart-icon-link {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+    text-decoration: none;
+    font-size: 22px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+}
+.cart-icon-link:hover { text-decoration: none; opacity: 0.75; }
+.cart-badge {
+    background-color: #d63384;
+    color: white;
+    border-radius: 50%;
+    min-width: 18px;
+    height: 18px;
+    font-size: 11px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    padding: 0 3px;
+    line-height: 1;
+}
+
+/* Nav cart link in sidenav (highlight) */
+.sidenav .nav-cart-link {
+    color: #d63384 !important;
+    font-weight: bold;
+}
+.sidenav .nav-cart-link:hover {
+    background-color: #fde8f2;
+}
+
+/* ── Category nav bar (cupcakes page) ── */
+.category-nav {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    background-color: white;
+    border-bottom: 2px solid #f493c1;
+    padding: 10px 8px;
+    margin: 0 -50px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 500;
+    flex-wrap: wrap;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+.category-nav a {
+    padding: 7px 16px;
+    color: #4a4a4a;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    white-space: nowrap;
+    border: 2px solid transparent;
+}
+.category-nav a:hover,
+.category-nav a.active {
+    background-color: #f493c1;
+    color: black;
+    text-decoration: none;
+}
+@media (max-width: 600px) {
+    .category-nav { margin: 0 -15px 15px; }
+}
+
+/* ── Search bar ── */
+.cupcake-search-bar {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 20px;
+}
+.cupcake-search-bar input {
+    width: 100%;
+    max-width: 420px;
+    padding: 10px 20px;
+    border: 2px solid #f493c1;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-family: Tahoma, Arial, sans-serif;
+    outline: none;
+    color: #333;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.cupcake-search-bar input:focus {
+    border-color: #e27ba1;
+    box-shadow: 0 0 0 3px rgba(228,123,161,0.15);
+}
+.no-results-msg {
+    text-align: center;
+    color: #888;
+    padding: 20px;
+    display: none;
+    font-style: italic;
+}
+
+/* ── Cupcake cards: consistent height & alignment via flexbox ── */
+.grid-container-six-column .grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.grid-container-six-column .grid-item form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+}
+.grid-container-six-column .grid-item .product-name {
+    min-height: 3.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 6px 0 2px;
+    font-size: 0.88rem;
+    line-height: 1.3;
+}
+.cupcake-price {
+    color: #d63384;
+    font-weight: bold;
+    font-size: 0.88rem;
+    margin: 0 0 4px;
+}
+.grid-container-six-column .grid-item .quantity-container {
+    margin-top: auto;
+    padding-top: 4px;
+}
+
+/* ── Toast notification (add to cart) ── */
+#tc-toast {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    background-color: #333;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    z-index: 9999;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    max-width: 320px;
+}
+#tc-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+#tc-toast .toast-cart-link {
+    color: #f493c1;
+    text-decoration: underline;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ── Home page improvements ── */
+.home-order-cta {
+    background-color: #fdf5f9;
+    border: 2px solid #f493c1;
+    border-radius: 12px;
+    padding: 24px 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
+}
+.home-order-cta p {
+    margin: 0 0 12px;
+    font-size: 1.05rem;
+}
+.home-order-cta .order-now-btn {
+    font-size: 1.15rem;
+    padding: 12px 36px;
+    background-color: #d63384;
+    color: white;
+    border-color: #a82266;
+}
+.home-order-cta .order-now-btn:hover {
+    background-color: #a82266;
+}
+.home-features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+}
+@media (max-width: 600px) {
+    .home-features-grid { grid-template-columns: 1fr; }
+}
+.feature-card {
+    background: white;
+    border: 1px solid #f0c8de;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+.feature-card strong {
+    color: #d63384;
+    display: block;
+    margin-bottom: 3px;
+}

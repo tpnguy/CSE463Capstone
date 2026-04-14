@@ -28,7 +28,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <meta name="description" content="Toronto Cupcake offers swift, reliable cupcake delivery throughout Toronto and the Greater Toronto Area (GTA). Whether it's for a special occasion or a corporate event, we've got you covered!">
         <meta name="keywords" content="cupcake delivery Toronto, send cupcakes, corporate events, custom cupcakes Toronto, GTA delivery, special occasions">
         
-        <link rel="stylesheet" href="css/torontocupcake.css">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/torontocupcake.css">
+    <link rel="stylesheet" href="css/aesthetic.css">
         <link rel="shortcut icon" href="https://www.torontocupcake.com/favicon.ico" />
         <link rel="canonical" href="delivery.html" />
         <link rel="apple-touch-icon" href="https://www.torontocupcake.com/apple_touch_icon_180x180.png" sizes="180x180" />
@@ -252,22 +256,28 @@ s0.parentNode.insertBefore(s1,s0);
         <!-- End Google Tag Manager (noscript) -->
 <!-- Header Section -->
 <header class="masthead" role="banner">
-    <div class="logo-container">
-        <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo">
-        <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-        <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-        <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-    </div>
+    <a href="index.html" class="logo-link" aria-label="Toronto Cupcake - Go to Home Page">
+        <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake" class="logo-main">
+    </a>
     <div class="pink-bar">
-        <span class="openNav" aria-label="Open Navigation">&#9776;</span> <!-- Hamburger icon -->
-        <span class="date-text"></span>
-        <span class="promo-text"><a href="#" aria-label="Check out our cupcake delivery services">Check out our cupcake delivery services</a></span>
+        <span class="openNav" aria-label="Open Navigation">&#9776;</span>
+        <span class="promo-text"><a href="CorporateEvents.html" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a></span>
+        <a href="cart.html" class="cart-icon-link" aria-label="View Shopping Cart">&#128722;<span class="cart-badge" id="cart-count-header"></span></a>
     </div>
 </header>
+<script>
+(function(){
+    var cart=JSON.parse(localStorage.getItem('tc_cart')||'[]');
+    var n=cart.reduce(function(a,i){return a+(parseInt(i.qty)||1);},0);
+    var el=document.getElementById('cart-count-header');
+    if(el){el.textContent=n>0?n:'';el.style.display=n>0?'flex':'none';}
+})();
+</script>
 
 <!-- Sidenav (Hamburger Menu) -->
 <div id="mySidenav" class="sidenav" role="navigation" aria-label="Main Navigation" aria-live="polite">
     <a href="index.html" aria-label="Toronto Cupcake's home page">HOME</a>
+        <a href="cart.html" class="nav-cart-link" aria-label="Shopping Cart">VIEW CART</a>
     <a href="about.html" aria-label="About Toronto Cupcake">ABOUT</a>
     <a href="CorporateEvents.html" aria-label="Corporate events page">CORPORATE EVENTS</a>
     <a href="occasions.html" aria-label="Supported occasions">OCCASIONS</a>
@@ -284,8 +294,7 @@ s0.parentNode.insertBefore(s1,s0);
     <a href="faqs.html" aria-label="Frequently asked questions">FAQs</a>
     <a href="resources.html" aria-label="Helpful resources">RESOURCES</a>
     <a href="contact.html" aria-label="Contact Toronto Cupcake">CONTACT</a>
-    <a href="delivery.html" aria-label="Cupcake delivery details">CUPCAKE DELIVERY</a> 
-    <a href="cgi-bin/html-cart/html-cart.cgi?action=display_cart&amp;page=cupcakes.html" aria-label="Shopping Cart">VIEW CART</a>    
+    <a href="delivery.html" aria-label="Cupcake delivery details">CUPCAKE DELIVERY</a>
 </div>
 <main id="main-content">
 <!--Content Area-->

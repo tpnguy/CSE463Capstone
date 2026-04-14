@@ -25,7 +25,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="twitter:description" content="Toronto Cupcake cupakes baked fresh daily customized and delivered"> <!-- Placeholder for description -->
     <meta name="twitter:image" content="images/LogoTOCC,png"> <!-- Placeholder for an image URL -->
     <meta name="author" content="Toronto Cupcake"> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/torontocupcake.css">
+    <link rel="stylesheet" href="css/aesthetic.css">
     <link rel="shortcut icon" href="https://www.torontocupcake.com/favicon.ico" />
     <link rel="canonical" href="index.html" />
     <link rel="apple-touch-icon" href="https://www.torontocupcake.com/apple_touch_icon_180x180.png" sizes="180x180" />
@@ -257,29 +261,30 @@ s0.parentNode.insertBefore(s1,s0);
 
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-<header class="masthead"  role="banner">
-    <div class="logo-container">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">       
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">     
-    </div>
-
+<header class="masthead" role="banner">
+    <a href="index.html" class="logo-link" aria-label="Toronto Cupcake - Go to Home Page">
+        <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake" class="logo-main">
+    </a>
     <div class="pink-bar">
-        <span class="openNav" aria-label="Open Navigation">&#9776;</span> <!-- Hamburger icon -->
-        <span class="date-text"></span>
-        <span class="promo-text"><a href="#" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a></span>
+        <span class="openNav" aria-label="Open Navigation">&#9776;</span>
+        <span class="promo-text"><a href="CorporateEvents.html" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a></span>
+        <a href="cart.html" class="cart-icon-link" aria-label="View Shopping Cart">&#128722;<span class="cart-badge" id="cart-count-header"></span></a>
     </div>
 </header>
+<script>
+(function(){
+    var cart=JSON.parse(localStorage.getItem('tc_cart')||'[]');
+    var n=cart.reduce(function(a,i){return a+(parseInt(i.qty)||1);},0);
+    var el=document.getElementById('cart-count-header');
+    if(el){el.textContent=n>0?n:'';el.style.display=n>0?'flex':'none';}
+})();
+</script>
 
 
 <!-- Sidenav (Hamburger Menu) -->
 <div id="mySidenav" class="sidenav"  role="navigation" aria-label="Main Navigation" aria-live="polite">
         <a href="index.html" aria-label="Toronto Cupcake's home page">HOME</a>
+        <a href="cart.html" class="nav-cart-link" aria-label="Shopping Cart">VIEW CART</a>
         <a href="about.html" aria-label="About Toronto Cupcake">ABOUT</a>
         <a href="CorporateEvents.html" aria-label="Page for Corporate events">CORPORATE EVENTS</a>
         <a  href="occasions.html" aria-label="Some occasions Toronto Cupcake supports">OCCASIONS</a>
@@ -296,8 +301,7 @@ s0.parentNode.insertBefore(s1,s0);
         <a href="faqs.html" aria-label="Toronto Cupcake Facts and Questions">FAQs</a>
         <a href="resources.html" aria-label="Resources that might prove helpful">RESOURCES</a>
         <a href="contact.html" aria-label="Toronto Cupcake contact information" >CONTACT</a>
-        <a href="delivery.html" aria-label="Toronto Cupcake delivery">CUPCAKE DELIVERY</a> 
-        <a href="cgi-bin/html-cart/html-cart.cgi?action=display_cart&amp;page=cupcakes.html" aria-label="Shopping Cart">VIEW CART</a>    
+        <a href="delivery.html" aria-label="Toronto Cupcake delivery">CUPCAKE DELIVERY</a>
 </div>
 
   <!-- Main Content Section -->
@@ -316,41 +320,41 @@ s0.parentNode.insertBefore(s1,s0);
     </section>
 
     <section>
-<!-- Welcome Paragraph -->
-<p class="center" style="margin: 5px; text-align: justify;">
-    Welcome to Toronto Cupcake, your go-to destination for the most delicious and freshly baked cupcakes in Toronto and the Greater Toronto Area (GTA). Whether you're celebrating a birthday, hosting a corporate event, or just craving a sweet treat, we've got the perfect cupcakes for every occasion. Order online 24/7 and enjoy fast, reliable delivery across the GTA!  Delicious cupcakes made fresh for every occasion. We cater to corporate events, birthdays, weddings, and more. Browse through our selection of custom cupcakes or create your own!<p class="center">
-      <a href="cupcakes.html" class="order-now-btn" aria-label="Order Now">Order Now</a></p>
-</p>
-<!-- Why are Toronto Cupcake the best in the GTA GTHA -->
-<h2 class="center">Why does Toronto Cupcake have the best cupcakes in the GTA GTHA?</h2>
-<div class="content flex-container" >
-    <div class="flex-item">
-        <ul  >
-            <li><strong>Baked Fresh Daily:</strong> Our cupcakes are baked fresh every day to guarantee maximum flavor and quality.</li>
-            <li><strong>Perfect for Any Occasion:</strong> Whether it's a corporate event, wedding, birthday, or just because, our cupcakes are sure to impress.</li>
-            <li><strong>Custom Designs Available:</strong> Need something unique? We offer custom cupcake designs to match your event's theme or personal taste.</li>
-            <li><strong>Fast and Reliable Delivery:</strong> We deliver across Toronto, the GTA, and beyond, ensuring your cupcakes arrive fresh and on time.</li>
-        </ul>
-    </div>
-</div>
+        <!-- Prominent Order Now CTA -->
+        <div class="home-order-cta">
+            <p>Freshly baked cupcakes for every occasion — delivered across Toronto &amp; the GTA.</p>
+            <a href="cupcakes.html" class="order-now-btn" aria-label="Order cupcakes now">Order Now</a>
+        </div>
 
-<!-- Specialty Cupcakes for Every Season -->
-<h2 class="center">Specialty Cupcakes for Every Season</h2>
-<p  style="margin: 10px;">
-    Our cupcake offerings change with the seasons, so there's always something new to try! Check out our <a href="cupcakes.html#Always-Available">Always Available Cupcakes</a> for classic flavors, or explore our <a href="cupcakes.html#Holidays">Holiday Cupcakes</a> and <a href="cupcakes.html#Special-Events">Special Event Cupcakes</a> for something truly unique.
-</p>
+        <!-- Feature highlights -->
+        <div class="home-features-grid">
+            <div class="feature-card">
+                <strong>Baked Fresh Daily</strong>
+                Maximum flavour, every single day.
+            </div>
+            <div class="feature-card">
+                <strong>Custom Designs</strong>
+                Logos, images, and messages on edible discs.
+            </div>
+            <div class="feature-card">
+                <strong>Every Occasion</strong>
+                Birthdays, weddings, corporate events &amp; more.
+            </div>
+            <div class="feature-card">
+                <strong>GTA-Wide Delivery</strong>
+                Toronto, Mississauga, Vaughan, Markham &amp; beyond.
+            </div>
+        </div>
 
-<!-- Celebrate with Toronto Cupcake -->
-<h2 class="center">Celebrate with Toronto Cupcake</h2>
-<p style="margin: 10px;">
-    Make your celebrations extra special with Toronto Cupcake. We offer a wide variety of cupcakes that are perfect for any event, from corporate meetings to weddings and birthdays. Our signature pink box delivery service is available across Toronto and the GTA, making it easy to enjoy our delicious cupcakes wherever you are.
-</p>
-
-<!-- Order Cupcakes Online -->
-<h2 class="center">Order Cupcakes Online Today!</h2>
-<p style="margin: 10px;">
-    Ready to indulge in Toronto's best cupcakes? <a href="cupcakes.html">Order online</a> today and have fresh, delicious cupcakes delivered right to your door. Whether you need cupcakes for a party or just want to treat yourself, Toronto Cupcake has you covered!
-</p>
+        <!-- Cupcake category quick links -->
+        <h2 class="center">Browse Our Cupcakes</h2>
+        <p style="text-align:center; margin: 0 0 12px;">
+            <a href="cupcakes.html#Always-Available">Always Available</a> &nbsp;|&nbsp;
+            <a href="cupcakes.html#Holidays">Holidays</a> &nbsp;|&nbsp;
+            <a href="cupcakes.html#Special-Events">Special Events</a> &nbsp;|&nbsp;
+            <a href="cupcakes.html#Custom-Section">Custom</a>
+        </p>
+    </section>
 
   </main>
 
