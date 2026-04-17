@@ -1150,6 +1150,20 @@ body.high-contrast .footer-nav a:focus {
 
 /* Desktop / Laptop Horizontal Nav */
 @media (min-width: 993px) {
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+    .masthead {
+        display: contents;
+    }
+    .logo-container { order: 1; }
+    .masthead > h1 { order: 2; margin: 5px 0; }
+    #mySidenav.sidenav { order: 3; }
+    .pink-bar { order: 4; }
+    main { order: 5; }
+    .footer { order: 6; }
+
     .openNav {
         display: none;
     }
