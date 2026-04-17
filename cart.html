@@ -1,252 +1,192 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TCFWH7NT');</script>
+    <!-- End Google Tag Manager -->
+
+    <meta name="description" content="Review your order and purchase delicious cupcakes from Toronto Cupcake. Enjoy a seamless ordering experience for the sweetest treats in town.">
+    <meta name="keywords" content="cupcakes, gourmet cupcakes, bakery, Toronto, Toronto Cupcake, cupcake delivery">
+    <meta property="og:title" content="Toronto Cupcake - Gourmet Cupcakes Delivered to Your Doorstep">
+    <meta property="og:description" content="Toronto Cupcake offers freshly baked gourmet cupcakes daily.">
+    <meta property="og:image" content="https://www.torontocupcake.com/images/default-image.jpg">
+    <meta property="og:url" content="https://www.torontocupcake.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Toronto Cupcake - The Sweetest Bakery in Town">
+    <meta name="twitter:description" content="Enjoy a selection of gourmet cupcakes at Toronto Cupcake.">
+    <meta name="twitter:image" content="https://www.torontocupcake.com/images/default-image.jpg">
+    <meta name="author" content="Toronto Cupcake">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toronto Cupcake | Your Cart</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Toronto Cupcake | Your Shopping Cart</title>
     <link rel="stylesheet" href="css/torontocupcake.css">
     <link rel="shortcut icon" href="https://www.torontocupcake.com/favicon.ico" />
-    <!-- jQuery UI for datepicker (kept from original cart) -->
+    <link rel="canonical" href="https://www.torontocupcake.com/" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 
     <style>
-        /* ── Cart page styles (matches site theme) ── */
-        .cart-wrapper {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 16px;
+        /* Copied exactly from original cart page */
+        .cart-table { width: 100%; border-collapse: collapse; }
+        .cart-table th, .cart-table td { border: 1px solid #ddd; padding: 8px; }
+        .header-row { background-color: #f493c1; color: #ffffff; font-weight: bold; }
+        .footer-row { background-color: #f4f4f4; font-weight: bold; }
+        .total-item-row { font-weight: normal; background-color: #fff; }
+        .cart-divider { border: 0; border-top: 2px solid #f493c1; }
+        .price-column, .amount-column {
+            text-align: right;
+            font-family: Tahoma, monospace;
+            padding-right: 10px;
         }
-        h1.cart-title {
-            text-align: center;
-            color: #f493c1;
-            margin-bottom: 24px;
+        .price-column:hover, .amount-column:hover {
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
         }
-
-        /* Empty state */
+        .table-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .totals-table {
+            width: 100%;
+            max-width: 500px;
+            font-family: Tahoma, Arial, sans-serif;
+            font-size: 1.1rem;
+            border-collapse: collapse;
+            margin: auto;
+        }
+        .totals-table th, .totals-table td {
+            padding: 8px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+        .totals-table th {
+            background-color: #f493c1;
+            color: #ffffff;
+            font-weight: bold;
+            text-align: right;
+        }
+        .totals-table td { font-family: Tahoma, monospace; }
+        .totals-table .item-column {
+            width: 200px;
+            text-align: left;
+            padding-left: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .totals-table caption {
+            position: absolute; width: 1px; height: 1px;
+            overflow: hidden; clip: rect(1px,1px,1px,1px);
+        }
+        .totals-table .amount-column, .totals-table .price-column {
+            min-width: 80px;
+            text-align: right;
+            padding-right: 10px;
+        }
+        .actions-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .actions-container .btn { flex: 1; text-align: center; }
+        .icon-delete {
+            width: 24px; height: 24px; cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+        }
+        .icon-delete:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        @media (max-width: 768px) {
+            .table-wrapper { justify-content: center; padding: 0; }
+            .totals-table { max-width: 100%; margin: auto; }
+        }
         .cart-empty {
             text-align: center;
             padding: 60px 20px;
             color: #888;
-        }
-        .cart-empty a {
-            color: #f493c1;
-            font-weight: bold;
-        }
-
-        /* Cart table */
-        .cart-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 24px;
-        }
-        .cart-table thead tr {
-            background-color: #f493c1;
-            color: #fff;
-        }
-        .cart-table th,
-        .cart-table td {
-            padding: 10px 12px;
-            border: 1px solid #e8c8d8;
-            vertical-align: middle;
-        }
-        .cart-table tbody tr:nth-child(even) {
-            background: #fdf4f8;
-        }
-        .cart-table tbody tr:hover {
-            background: #fce8f2;
-        }
-        .cart-item-img {
-            width: 56px;
-            height: 56px;
-            object-fit: cover;
-            border-radius: 8px;
-            display: block;
-        }
-        .qty-input {
-            width: 56px;
-            padding: 6px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 1rem;
-        }
-        .qty-input:focus {
-            border-color: #f493c1;
-            outline: none;
-        }
-        .btn-remove {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: #cc3366;
-            transition: transform 0.15s, color 0.15s;
-            padding: 4px 8px;
-        }
-        .btn-remove:hover {
-            transform: scale(1.2);
-            color: #990033;
-        }
-        .price-cell {
-            text-align: right;
-            font-family: Tahoma, monospace;
-        }
-
-        /* Totals */
-        .totals-wrapper {
-            display: flex;
-            justify-content: flex-end;
-        }
-        .totals-table {
-            width: 100%;
-            max-width: 420px;
-            border-collapse: collapse;
-            font-size: 1rem;
-        }
-        .totals-table td {
-            padding: 8px 12px;
-            border-bottom: 1px solid #eee;
-        }
-        .totals-table td:last-child {
-            text-align: right;
-            font-family: Tahoma, monospace;
-        }
-        .totals-table .total-row td {
-            font-weight: bold;
             font-size: 1.1rem;
-            color: #cc3366;
-            border-top: 2px solid #f493c1;
         }
-
-        /* Action buttons row */
-        .cart-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-top: 24px;
-            justify-content: space-between;
-        }
-        .cart-actions .btn {
-            flex: 1;
-            min-width: 140px;
-            text-align: center;
-        }
-
-        /* Note box */
-        .cart-note {
-            background: #fff8fb;
-            border: 1px solid #f4c6dc;
-            border-radius: 8px;
-            padding: 14px 18px;
-            margin-top: 28px;
-            font-size: 0.9rem;
-            color: #555;
-        }
-        .cart-note strong {
-            color: #cc3366;
-        }
-
-        @media (max-width: 600px) {
-            .cart-table th:nth-child(2),
-            .cart-table td:nth-child(2) { display: none; } /* hide image col on mobile */
-            .cart-actions { flex-direction: column; }
-        }
+        .cart-empty a { color: #f493c1; font-weight: bold; }
     </style>
 </head>
 
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TCFWH7NT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-    <!-- ── Header (matches all other pages) ── -->
     <header class="masthead" role="banner">
         <div class="logo-container">
             <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="" class="logo" aria-hidden="true">
-            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="" class="logo" aria-hidden="true">
+            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
+            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
+            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
+            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
+            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
+            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
+            <img src="https://www.torontocupcake.com/images/transparent-TO-logo.png" alt="Toronto Cupcake Logo" class="logo" aria-hidden="true">
         </div>
         <div class="pink-bar">
             <span class="openNav" aria-label="Open Navigation">&#9776;</span>
             <span class="date-text"></span>
-            <span class="promo-text">
-                <a href="#" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a>
-            </span>
+            <span class="promo-text"><a href="#" aria-label="Check out our new Corporate event logo cupcakes">Check out our new Corporate event logo cupcakes</a></span>
         </div>
     </header>
 
-    <!-- ── Side nav ── -->
     <div id="mySidenav" class="sidenav" role="navigation" aria-label="Main Navigation" aria-live="polite">
-        <a href="index.html">HOME</a>
-        <a href="about.html">ABOUT</a>
-        <a href="CorporateEvents.html">CORPORATE EVENTS</a>
-        <a href="occasions.html">OCCASIONS</a>
+        <a href="index.html" aria-label="Toronto Cupcake's home page">HOME</a>
+        <a href="about.html" aria-label="About Toronto Cupcake">ABOUT</a>
+        <a href="CorporateEvents.html" aria-label="Page for Corporate events">CORPORATE EVENTS</a>
+        <a href="occasions.html" aria-label="Some occasions Toronto Cupcake supports">OCCASIONS</a>
         <div class="submenu-parent">
-            <a href="#" class="submenu-toggle" aria-expanded="false" aria-controls="submenu1">CUPCAKES</a>
+            <a href="#" class="submenu-toggle" aria-expanded="false" aria-controls="submenu1" aria-label="Expand Cupcake options">CUPCAKES</a>
             <ul id="submenu1" class="submenu" aria-hidden="true">
-                <li><a href="cupcakes.html#Always-Available">ALWAYS AVAILABLE</a></li>
-                <li><a href="cupcakes.html#Holidays">HOLIDAYS</a></li>
-                <li><a href="cupcakes.html#Special-Events">SPECIAL EVENTS</a></li>
-                <li><a href="cupcakes.html#Custom">CUSTOM</a></li>
+                <li><a href="cupcakes.html#Always-Available" aria-label="Cupcakes available every day">ALWAYS AVAILABLE</a></li>
+                <li><a href="cupcakes.html#Holidays" aria-label="Cupcakes available for different holidays">HOLIDAYS</a></li>
+                <li><a href="cupcakes.html#Special-Events" aria-label="Cupcakes available for special events">SPECIAL EVENTS</a></li>
+                <li><a href="cupcakes.html#Custom" aria-label="Cupcakes customized">CUSTOM</a></li>
             </ul>
         </div>
-        <a href="givingback.html">COMMUNITY</a>
-        <a href="faqs.html">FAQs</a>
-        <a href="resources.html">RESOURCES</a>
-        <a href="contact.html">CONTACT</a>
-        <a href="delivery.html">CUPCAKE DELIVERY</a>
+        <a href="givingback.html" aria-label="Toronto Cupcake's community page">COMMUNITY</a>
+        <a href="faqs.html" aria-label="Toronto Cupcake Facts and Questions">FAQs</a>
+        <a href="resources.html" aria-label="Resources that might prove helpful">RESOURCES</a>
+        <a href="contact.html" aria-label="Toronto Cupcake contact information">CONTACT</a>
+        <a href="delivery.html" aria-label="Toronto Cupcake delivery">CUPCAKE DELIVERY</a>
         <a href="cart.html" aria-label="Shopping Cart">VIEW CART</a>
     </div>
 
-    <!-- ── Main content ── -->
     <main id="main-content">
-        <div class="cart-wrapper">
-            <h1 class="cart-title">Your Cart</h1>
-
-            <!-- Cart content rendered by JS -->
-            <div id="cart-content"></div>
-
-            <!-- Action buttons (hidden when cart is empty) -->
-            <div class="cart-actions" id="cart-actions" style="display:none;">
-                <button class="btn" id="btn-update">Update Cart</button>
-                <a href="cupcakes.html" class="btn">Continue Shopping</a>
-                <button class="btn" id="btn-clear" style="background:#fff;color:#cc3366;border:2px solid #cc3366;">
-                    Clear Cart
-                </button>
-            </div>
-
-            <!-- Info note -->
-            <div class="cart-note" id="cart-note" style="display:none;">
-                <strong>Ready to order?</strong> To complete your purchase, please 
-                <a href="contact.html">contact us</a> or call 
-                <a href="tel:+16474789464">647-478-9464</a>. 
-                Our team will confirm your order, delivery date, and payment details.
+        <div class="content responsive-image">
+            <h1 id="cart"></h1>
+            <div id="cart-content">
+                <!-- Rendered by JS -->
             </div>
         </div>
     </main>
 
-    <!-- ── Footer ── -->
     <footer class="footer" role="contentinfo">
         <div class="footer-container">
             <div class="footer-nav">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
-                <a href="CorporateEvents.html">Corporate Events</a>
-                <a href="cupcakes.html">Cupcakes</a>
-                <a href="occasions.html">Occasions</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="EmploymentOpportunities.html">Careers</a>
+                <a href="index.html" aria-label="Home Page">Home</a>
+                <a href="about.html" aria-label="About Toronto Cupcake">About</a>
+                <a href="contact.html" aria-label="Toronto Cupcake contact information">Contact</a>
+                <a href="CorporateEvents.html" aria-label="Page for Corporate events">Corporate Events</a>
+                <a href="cupcakes.html" aria-label="Cupcakes">Cupcakes</a>
+                <a href="occasions.html" aria-label="Some occasions Toronto Cupcake supports">Occasions</a>
+                <a href="privacy.html" aria-label="Privacy Policy">Privacy Policy</a>
+                <a href="EmploymentOpportunities.html" aria-label="Employment Opportunities">Careers</a>
             </div>
-            <button class="btn" id="contrast-toggle" aria-pressed="false" aria-label="Toggle high contrast mode">
-                Toggle High Contrast
-            </button>
+            <button class="btn" id="contrast-toggle" aria-pressed="false" aria-label="Toggle high contrast mode">Toggle High Contrast</button>
             <div class="footer-social">
                 <a href="https://www.instagram.com/torontocupcake/" target="_blank">
                     <img src="https://www.torontocupcake.com/images/instagram-white.webp" alt="Instagram">
@@ -259,12 +199,11 @@
         </div>
     </footer>
 
-    <!-- ── Scripts ── -->
     <script>
     const CART_KEY = 'tc_cart';
     const BASE_IMG = 'https://www.torontocupcake.com/images/cupcakes_flavours/';
+    const FALLBACK_IMG = BASE_IMG + 'assorteddozen.webp';
 
-    // ── Helpers ──────────────────────────────────────────────
     function loadCart() {
         try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
         catch { return []; }
@@ -273,113 +212,152 @@
         localStorage.setItem(CART_KEY, JSON.stringify(cart));
     }
 
-    // ── Render the cart table ────────────────────────────────
     function renderCart() {
         const cart = loadCart();
         const container = document.getElementById('cart-content');
-        const actions   = document.getElementById('cart-actions');
-        const note      = document.getElementById('cart-note');
 
         if (cart.length === 0) {
             container.innerHTML = `
                 <div class="cart-empty">
-                    <p style="font-size:1.3rem;">🧁 Your cart is empty.</p>
+                    <p>🧁 Your cart is empty.</p>
                     <p><a href="cupcakes.html">Browse our cupcakes →</a></p>
                 </div>`;
-            actions.style.display = 'none';
-            note.style.display    = 'none';
             return;
         }
 
-        actions.style.display = 'flex';
-        note.style.display    = 'block';
-
-        // Build table rows
-        let rowsHTML = '';
-        let subtotal = 0;
-
+        // ── Item rows: DELETE | img | QTY | Flavour/Item | Type ──
+        let itemRowsHTML = '';
         cart.forEach((item, index) => {
-            const lineTotal = item.price * item.qty;
-            subtotal += lineTotal;
-            const imgSrc = item.image
-                ? `${BASE_IMG}${item.image}`
-                : 'https://www.torontocupcake.com/images/cupcakes_flavours/assorteddozen.webp';
-
-            rowsHTML += `
+            const imgSrc = item.image ? `${BASE_IMG}${item.image}` : FALLBACK_IMG;
+            itemRowsHTML += `
                 <tr>
                     <td>
-                        <button class="btn-remove" data-index="${index}" 
-                                aria-label="Remove ${item.name} from cart">✕</button>
+                        <img src="https://www.torontocupcake.com/images/delete-item.png"
+                             title="Delete item from cart"
+                             alt="Remove item from the cart"
+                             class="icon-delete"
+                             role="button" tabindex="0"
+                             data-index="${index}"
+                             onclick="removeItem(${index})"
+                             onkeydown="if(event.key==='Enter'||event.key===' ')removeItem(${index})">
                     </td>
                     <td>
-                        <img src="${imgSrc}" alt="${item.name}" class="cart-item-img"
-                             onerror="this.src='https://www.torontocupcake.com/images/cupcakes_flavours/assorteddozen.webp'">
+                        <img src="${imgSrc}"
+                             title="${item.name} cupcake"
+                             alt="${item.name} cupcake image"
+                             class="cart-item-image"
+                             width="50" height="75"
+                             onerror="this.src='${FALLBACK_IMG}'">
                     </td>
-                    <td>${item.name}<br>
-                        <small style="color:#888;">${item.group}</small>
-                    </td>
-                    <td class="price-cell">$${item.price.toFixed(2)}</td>
                     <td>
-                        <input type="number" class="qty-input" 
-                               data-index="${index}" 
-                               value="${item.qty}" min="1" 
+                        <input type="text" name="qty-${index}" size="4"
+                               value="${item.qty}" min="1"
+                               class="qty-input-field"
+                               data-index="${index}"
                                aria-label="Quantity for ${item.name}">
                     </td>
-                    <td class="price-cell">$${lineTotal.toFixed(2)}</td>
+                    <td>${item.name}</td>
+                    <td>${item.group}</td>
+                </tr>`;
+        });
+
+        // ── Totals rows: group breakdown matching original style ──
+        const groups = {};
+        cart.forEach(item => {
+            if (!groups[item.group]) {
+                groups[item.group] = { qty: 0, amount: 0, unitPrice: item.price, isSingle: item.price < 10 };
+            }
+            groups[item.group].qty    += item.qty;
+            groups[item.group].amount += item.price * item.qty;
+        });
+
+        let totalsRowsHTML = '';
+        let subtotal = 0;
+        Object.entries(groups).forEach(([groupName, data]) => {
+            subtotal += data.amount;
+            const packageLabel = data.isSingle ? 'Singles' : 'Package';
+            totalsRowsHTML += `
+                <tr class="total-item-row">
+                    <td class="item-column">Total ${groupName}</td>
+                    <td>${data.qty}</td>
+                    <td class="price-column"></td>
+                    <td class="price-column"></td>
+                </tr>
+                <tr>
+                    <td class="item-column" nowrap>${packageLabel}</td>
+                    <td>${data.qty}</td>
+                    <td class="price-column">${data.unitPrice.toFixed(2)}</td>
+                    <td class="price-column">${data.amount.toFixed(2)}</td>
                 </tr>`;
         });
 
         container.innerHTML = `
-            <table class="cart-table" role="table" aria-label="Shopping cart">
-                <thead>
-                    <tr>
-                        <th scope="col">Remove</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Item</th>
-                        <th scope="col" style="text-align:right;">Price</th>
-                        <th scope="col">Qty</th>
-                        <th scope="col" style="text-align:right;">Total</th>
-                    </tr>
-                </thead>
-                <tbody>${rowsHTML}</tbody>
-            </table>
+            <div class="DATA">
+                <table class="cart-table">
+                    <thead>
+                        <tr class="header-row">
+                            <th scope="col" style="width:5%;">DELETE</th>
+                            <th scope="col" style="width:5%;"></th>
+                            <th scope="col" style="width:5%;">QTY</th>
+                            <th scope="col" style="width:30%;">Flavour/Item</th>
+                            <th scope="col" style="width:30%;">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>${itemRowsHTML}</tbody>
+                </table>
+            </div>
 
-            <div class="totals-wrapper">
-                <table class="totals-table" aria-label="Order totals">
+            <div style="margin-top:10px;">
+                <button type="button" class="btn" id="btn-update">Update Cart</button>
+            </div>
+
+            <div class="table-wrapper" aria-label="Order Summary">
+                <table class="totals-table" role="table" aria-describedby="table-description">
+                    <caption id="table-description">Order totals including quantity, price, and amount.</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="item-column"></th>
+                            <th scope="col">QTY</th>
+                            <th scope="col">PRICE</th>
+                            <th scope="col">AMOUNT</th>
+                        </tr>
+                    </thead>
                     <tbody>
+                        ${totalsRowsHTML}
                         <tr>
-                            <td>Items (${cart.reduce((s,i) => s + i.qty, 0)})</td>
-                            <td>$${subtotal.toFixed(2)}</td>
-                        </tr>
-                        <tr>
-                            <td>Delivery</td>
-                            <td>Calculated at checkout</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td>Subtotal</td>
-                            <td>$${subtotal.toFixed(2)} CAD</td>
+                            <td>Subtotal:</td>
+                            <td></td>
+                            <td></td>
+                            <td class="price-column">$ ${subtotal.toFixed(2)}</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="actions-container">
+                <button type="button" class="btn" id="btn-place-order">Place Order</button>
+                <a href="cupcakes.html" class="btn">Continue Shopping</a>
+                <button type="button" class="btn" id="btn-clear">Clear Cart</button>
             </div>`;
 
-        // ── Attach remove buttons ──
-        document.querySelectorAll('.btn-remove').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const i = parseInt(this.dataset.index);
-                const cart = loadCart();
-                const removedName = cart[i]?.name || 'Item';
-                cart.splice(i, 1);
-                saveCart(cart);
-                renderCart();
-            });
+        // Wire buttons after render
+        document.getElementById('btn-update').addEventListener('click', updateCart);
+        document.getElementById('btn-clear').addEventListener('click', clearCart);
+        document.getElementById('btn-place-order').addEventListener('click', function() {
+            alert('To complete your order, please contact us at 647-478-9464 or visit our contact page.');
         });
     }
 
-    // ── Update cart quantities ───────────────────────────────
+    function removeItem(index) {
+        const cart = loadCart();
+        cart.splice(index, 1);
+        saveCart(cart);
+        renderCart();
+    }
+
     function updateCart() {
         const cart = loadCart();
-        document.querySelectorAll('.qty-input').forEach(input => {
+        document.querySelectorAll('.qty-input-field').forEach(input => {
             const i   = parseInt(input.dataset.index);
             const qty = Math.max(1, parseInt(input.value) || 1);
             if (cart[i]) cart[i].qty = qty;
@@ -388,20 +366,17 @@
         renderCart();
     }
 
-    // ── Page init ────────────────────────────────────────────
-    document.addEventListener('DOMContentLoaded', function() {
+    function clearCart() {
+        if (confirm('Clear your entire cart?')) {
+            localStorage.removeItem(CART_KEY);
+            renderCart();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
         renderCart();
 
-        document.getElementById('btn-update').addEventListener('click', updateCart);
-
-        document.getElementById('btn-clear').addEventListener('click', function() {
-            if (confirm('Clear your entire cart?')) {
-                localStorage.removeItem(CART_KEY);
-                renderCart();
-            }
-        });
-
-        // ── Sidenav (same as all other pages) ──
+        // Sidenav
         const sidenav = document.getElementById('mySidenav');
         const openBtn = document.querySelector('.openNav');
         if (sidenav && openBtn) {
@@ -409,8 +384,7 @@
                 sidenav.classList.add('open');
                 document.body.classList.add('sidenav-open');
             });
-            const toggles = sidenav.querySelectorAll('.submenu-toggle');
-            toggles.forEach(toggle => {
+            sidenav.querySelectorAll('.submenu-toggle').forEach(toggle => {
                 toggle.addEventListener('click', function(e) {
                     e.preventDefault(); e.stopPropagation();
                     const expanded = toggle.getAttribute('aria-expanded') === 'true';
@@ -421,25 +395,33 @@
                 });
             });
             document.addEventListener('click', function(e) {
-                if (!sidenav.contains(e.target) && !e.target.closest('.openNav')) {
+                const isSubmenuToggle = e.target.closest('.submenu-toggle');
+                if (!sidenav.contains(e.target) && !e.target.closest('.openNav') && !isSubmenuToggle) {
+                    sidenav.querySelectorAll('.submenu-parent.open').forEach(parent => {
+                        parent.classList.remove('open');
+                        parent.querySelector('.submenu-toggle').setAttribute('aria-expanded','false');
+                        parent.querySelector('.submenu').setAttribute('aria-hidden','true');
+                    });
                     sidenav.classList.remove('open');
                     document.body.classList.remove('sidenav-open');
                 }
             });
         }
 
-        // ── Date display ──
+        // Date display
         const dateEl = document.querySelector('.date-text');
         if (dateEl) {
             const opts = { timeZone:'America/Toronto', weekday:'long', year:'numeric', month:'long', day:'numeric' };
             dateEl.textContent = new Date().toLocaleString('en-CA', opts) + ' - Toronto';
         }
 
-        // ── High contrast toggle ──
+        // High contrast
         const contrastBtn = document.getElementById('contrast-toggle');
         if (contrastBtn) {
-            const saved = localStorage.getItem('high-contrast');
-            if (saved === 'true') document.body.classList.add('high-contrast');
+            if (localStorage.getItem('high-contrast') === 'true') {
+                document.body.classList.add('high-contrast');
+                contrastBtn.setAttribute('aria-pressed', 'true');
+            }
             contrastBtn.addEventListener('click', () => {
                 const on = document.body.classList.toggle('high-contrast');
                 localStorage.setItem('high-contrast', on);
@@ -447,6 +429,19 @@
             });
         }
     });
+    </script>
+
+    <!-- Tawk -->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/647d6f3f7957702c744bc774/1h24vl45j';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
     </script>
 </body>
 </html>
