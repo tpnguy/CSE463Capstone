@@ -697,9 +697,33 @@ body.high-contrast .footer-nav a:focus {
 
 /* Override potential conflicts */
 .grid-container, .grid-item {
-    display: initial; /* Reset display to avoid flex or other properties */
     margin: 0;
     padding: 0;
+}
+
+/* Flex column layout so QTY + button align consistently regardless of name length */
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grid-item form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.grid-item .product-name {
+    flex-grow: 1;
+}
+
+/* Prevent button text overflow in narrow 6-column cells */
+.grid-item input[type="submit"].btn {
+    font-size: 14px;
+    max-width: 100%;
+    white-space: nowrap;
 }
 /* Ensure image fills the column */
 .column-1 .rounded-img {
@@ -934,6 +958,30 @@ body.high-contrast .footer-nav a:focus {
     background-color: #f0f0f0; /* Light grey background on hover */
     cursor: zoom-in; /* Magnifying glass cursor */
 }
+
+/* Shopping cart icon in pink bar */
+.cart-icon-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+    text-decoration: none;
+    line-height: 0;
+    z-index: 1001;
+}
+.cart-icon-btn:hover {
+    color: #4a4a4a;
+}
+
+/* === CHANGE INDICATORS (remove after review) === */
+.grid-item form,
+.grid-item input[type="submit"].btn,
+.quantity-container,
+.cart-icon-btn {
+    outline: 2px solid red;
+}
+
 .modal[style*="display: flex"] {
     opacity: 0;
     animation: fadeIn 0.5s forwards;
