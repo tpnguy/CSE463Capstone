@@ -258,6 +258,7 @@
                     </td>
                     <td>${item.name}</td>
                     <td>${item.group}</td>
+                    <td class="price-column">$${item.price.toFixed(2)}</td>
                 </tr>`;
         });
 
@@ -301,6 +302,7 @@
                             <th scope="col" style="width:5%;">QTY</th>
                             <th scope="col" style="width:30%;">Flavour/Item</th>
                             <th scope="col" style="width:30%;">Type</th>
+                            <th scope="col" style="width:15%;">PRICE</th>
                         </tr>
                     </thead>
                     <tbody>${itemRowsHTML}</tbody>
