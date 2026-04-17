@@ -979,7 +979,6 @@ body.high-contrast .footer-nav a:focus {
 .grid-item input[type="submit"].btn,
 .quantity-container,
 .cart-icon-btn {
-    outline: 2px solid red;
 }
 
 .modal[style*="display: flex"] {
