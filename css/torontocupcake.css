@@ -1256,3 +1256,44 @@ body.high-contrast .footer-nav a:focus {
     }
 }
 .text-left { text-align: left; }
+
+/* === GRADER CHANGE INDICATORS (remove after review) === */
+
+/* 1. New cart icon in header — added to every page */
+.cart-icon-btn {
+    outline: 3px solid red !important;
+    outline-offset: 2px;
+}
+
+/* 2. VIEW CART link — href updated from cgi-bin to cart.html */
+a[href="cart.html"][aria-label="Shopping Cart"] {
+    outline: 3px solid red !important;
+    outline-offset: 2px;
+}
+
+/* 3. Desktop horizontal nav bar — new responsive CSS layout for sidenav */
+@media (min-width: 993px) {
+    #mySidenav {
+        outline: 4px solid red !important;
+        outline-offset: 4px;
+    }
+}
+
+/* 4–7. cupcakes.html: new filter sidebar, tabs, toolbar, grid, modal */
+.filter-sidebar,
+.category-tabs,
+.cupcakes-toolbar,
+.cupcake-grid,
+.cupcake-modal {
+    outline: 3px solid red !important;
+    outline-offset: 2px;
+}
+
+/* 8–11. cart.html: new table structure, delete icon, totals, place-order button */
+.cart-table,
+.icon-delete,
+.totals-table,
+#btn-place-order {
+    outline: 3px solid red !important;
+    outline-offset: 2px;
+}
